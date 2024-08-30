@@ -16,16 +16,53 @@ This is a sample application used to demonstrate a POC of using GitHub Actions t
 #### Step-By-Step Guide for how to create an image 
 -----------------------------------------
 
+- Taken image from debain slim 
 
-- FROM debian:bookworm-slim # its we are taking image from debain slim 
+      FROM debian:bookworm-slim 
 
-- RUN apt-get update    # update manager for update current docker on our system
-- RUN apt-get install -y curl   # For curl install
-- RUN curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh         # for Download the setup script
-- RUN bash nodesource_setup.sh      # for Run the setup script with sudo
-- RUN apt-get install -y nodejs      #  for install the node js 
+- update manager for update current docker on our system
 
-### Deploy to AWS ECR as below:
+      RUN apt-get update 
+
+- For curl install
+
+       RUN apt-get install -y curl   
+
+- Download the setup script
+
+      RUN curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh         
+
+- To Run the setup script with sudo
+
+      RUN bash nodesource_setup.sh      
+
+- To Install the node js 
+
+      RUN apt-get install -y nodejs      
+
+#### Steps to building and pushing Image to Private ECR
+
+- Command to build an image
+
+      docker build -t <IMAGE_NAME>:<IMAGE_TAG> .
+
+- Command example with my image
+    
+      docker build -t simple-app-image .
+
+- Command to tag an image
+
+      docker tag <IMAGE_NAME>:<IMAGE_TAG> <REPOSITORY_URI>:<IMAGE_TAG>
+
+- Command example with our image and repository
+
+      docker tag simple-app-image:latest <account no.>.dkr.ecr.ap-southeast-1.amazonaws.com/<REPOSITORY_NAME>:latest
+
+- Command to push image:
+
+      docker push <account no.>.dkr.ecr.ap-southeast-1.amazonaws.com/<REPOSITORY_NAME>:latest
+
+#### Deploy to AWS ECR as below:
 -----------
 
 - Make sure that you have the latest version of the AWS CLI and Docker installed.
