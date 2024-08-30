@@ -41,6 +41,7 @@ This is a sample application used to demonstrate a POC of using GitHub Actions t
       RUN apt-get install -y nodejs      
 
 #### Steps to building and pushing Image to Private ECR
+------
 
 - Command to build an image
 
